@@ -38,6 +38,7 @@ RUN npm install && npm update && npm cache clean --force
 COPY --chown=nodejs:nodejs . .
 
 # build/pack binaries from sources
+RUN npm run build
 
 # This results in a single layer image
 # FROM node:lts-alpine AS release
