@@ -1,0 +1,13 @@
+node_modules/
+yarn-error.log
+.env
+src/scripts
+.vscode
+yarn.lock
+test.ts
+dist
+package-lock.json
+yarn.lock
+
+# Frontend app (push separately)
+manhwa-web-app/
