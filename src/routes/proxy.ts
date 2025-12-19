@@ -111,13 +111,25 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
     }
 
     try {
+      // Determine the correct referer based on the image URL
+      let effectiveReferer = referer;
+      if (!effectiveReferer) {
+        // Auto-detect referer from URL domain
+        try {
+          const urlObj = new URL(url);
+          effectiveReferer = urlObj.origin + '/';
+        } catch {
+          effectiveReferer = 'https://manhuaplus.top/';
+        }
+      }
+
       const response = await axios.get(url, {
         responseType: 'arraybuffer',
         headers: {
           'User-Agent':
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-          Referer: 'https://comick.app/',
-          Origin: 'https://comick.app',
+          Referer: effectiveReferer,
+          Origin: new URL(effectiveReferer).origin,
           Accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
           'Accept-Language': 'en-US,en;q=0.9',
           'sec-ch-ua':

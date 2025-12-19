@@ -6,15 +6,19 @@ import mangadex from './mangadex';
 import comick from './comick';
 import manhuaus from './manhuaus';
 import manhuaplus from './manhuaplus';
+import unified from './unified';
 
 const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
+  // Register unified provider first (with fallback system)
+  await fastify.register(unified, { prefix: '/unified' });
+
+  // Individual providers
   await fastify.register(asurascans, { prefix: '/asurascans' });
   await fastify.register(weebcentral, { prefix: '/weebcentral' });
   await fastify.register(mangadex, { prefix: '/mangadex' });
   await fastify.register(comick, { prefix: '/comick' });
   await fastify.register(manhuaus, { prefix: '/manhuaus' });
   await fastify.register(manhuaplus, { prefix: '/manhuaplus' });
-
 
   fastify.get('/', async (request: any, reply: any) => {
     reply.status(200).send('Welcome to Consumet Manhwa');

@@ -1,2 +1,0 @@
-Fallback triggered at 2025-12-02T15:01:48.447Z
-CWD: C:\Users\PC\Desktop\api.consumet.org

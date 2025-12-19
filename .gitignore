@@ -11,3 +11,6 @@ yarn.lock
 
 # Frontend app (push separately)
 manhwa-web-app/
+
+# Zenith scans (separate project)
+zenith-scans/
