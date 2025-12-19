@@ -62,6 +62,12 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
           imgEl.attr('srcset')?.split(' ')[0] ||
           imgEl.attr('src') ||
           '';
+        
+        // Skip entries with no valid image
+        if (!image || image.trim() === '' || image === baseUrl) {
+          return; // Skip this item
+        }
+        
         const latestChapter = $(el).find('.latest-chap .chapter a').first().text().trim();
 
         // Extract ID from URL
@@ -199,6 +205,12 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
           imgEl.attr('srcset')?.split(' ')[0] ||
           imgEl.attr('src') ||
           '';
+        
+        // Skip entries with no valid image
+        if (!image || image.trim() === '' || image === baseUrl) {
+          return; // Skip this item
+        }
+        
         const latestChapter = $(el).find('.latest-chap .chapter a').text().trim();
 
         // Extract ID from URL
@@ -373,6 +385,12 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
           imgEl.attr('srcset')?.split(' ')[0] ||
           imgEl.attr('src') ||
           '';
+        
+        // Skip entries with no valid image
+        if (!image || image.trim() === '' || image === baseUrl) {
+          return; // Skip this item
+        }
+        
         const latestChapter = $(el).find('.latest-chap .chapter a').text().trim();
 
         // Extract ID from URL
@@ -479,6 +497,12 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
           imgEl.attr('data-lazy-src') ||
           imgEl.attr('src') ||
           '';
+        
+        // Skip entries with no valid image
+        if (!image || image.trim() === '' || image === baseUrl) {
+          return; // Skip this item
+        }
+        
         const latestChapter = $(el).find('.latest-chap .chapter a').first().text().trim();
 
         // Extract ID from URL

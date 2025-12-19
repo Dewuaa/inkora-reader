@@ -75,6 +75,11 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
         const imgEl = $(el).find('.image a img');
         const imageRaw = imgEl.attr('data-original') || imgEl.attr('src') || '';
         const image = normalizeImageUrl(imageRaw);
+        
+        // Skip entries with no valid image
+        if (!image || image.trim() === '' || image === baseUrl) {
+          return; // Skip this item
+        }
 
         // Get latest chapters
         const latestChapters: any[] = [];
@@ -180,6 +185,11 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
         const imgEl = $(el).find('.image a img');
         const imageRaw = imgEl.attr('data-original') || imgEl.attr('src') || '';
         const image = normalizeImageUrl(imageRaw);
+        
+        // Skip entries with no valid image
+        if (!image || image.trim() === '' || image === baseUrl) {
+          return; // Skip this item
+        }
 
         const latestChapters: any[] = [];
         $(el)
@@ -322,6 +332,11 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
         const imgEl = $(el).find('.image a img');
         const imageRaw = imgEl.attr('data-original') || imgEl.attr('src') || '';
         const image = normalizeImageUrl(imageRaw);
+        
+        // Skip entries with no valid image
+        if (!image || image.trim() === '' || image === baseUrl) {
+          return; // Skip this item
+        }
 
         const latestChapter = $(el)
           .find('ul.comic-item li.chapter a')
@@ -413,6 +428,11 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
           const imgEl = $(el).find('.image a img');
           const imageRaw = imgEl.attr('data-original') || imgEl.attr('src') || '';
           const image = normalizeImageUrl(imageRaw);
+          
+          // Skip entries with no valid image
+          if (!image || image.trim() === '' || image === baseUrl) {
+            return; // Skip this item
+          }
 
           const latestChapter = $(el)
             .find('ul.comic-item li.chapter a')

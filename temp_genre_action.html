@@ -1,0 +1,1498 @@
+﻿
+	 
+
+
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+
+
+
+<meta name="googlebot" content="noindex">
+<meta name="robots" content="noindex">
+
+
+
+
+
+<meta name="referrer" content="origin">
+<title>Mgeko Browser</title>
+<style>
+  :root{--primary:#00AEF0;--primary-dark:#0F5065;--secondary:#8B5CF6;--danger:#EF4444;--success:#10B981;--warning:#F59E0B;--gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;--gray-500:#6B7280;--gray-700:#374151;--gray-900:#111827;--browse-surface:#fff;--browse-surface-elevated:#fff;--browse-surface-soft:#f9fafb;--browse-border-subtle:#e5e7eb;--browse-border-strong:#d1d5db;--browse-border-accent:#00AEF0;--browse-text-main:#111827;--browse-text-muted:#6b7280;--browse-chip-bg:#f3f4f6;--browse-chip-border:#e5e7eb;--browse-accent:#00AEF0;--browse-accent-soft:#0F5065;--browse-accent-alt:#00AEF0;--browse-hot:#ef4444}*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;line-height:1.3;color:var(--gray-900);background-color:var(--gray-50);padding:12px}.container{max-width:1200px;margin:0 auto}.section-title{font-size:1.4rem;font-weight:700;margin-bottom:0.4rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.section-subtitle{font-size:0.85rem;color:var(--gray-500);margin-bottom:1rem}.browse-filters{background:var(--browse-surface-elevated);border-radius:0.9rem;padding:1rem 1.25rem 0.9rem;border:1px solid var(--browse-border-strong);box-shadow:0 18px 40px rgba(15,23,42,0.12);backdrop-filter:blur(14px);margin-bottom:1.2rem}.browse-filters__top-row{display:grid;grid-template-columns:1fr;gap:1rem;align-items:flex-end}.bf-group{display:flex;flex-direction:column;gap:0.3rem}.bf-group--search{min-width:0}.bf-group--view-toggle{align-items:flex-start}.bf-label{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--browse-text-muted);font-weight:600}.bf-input,.bf-select{width:100%;border-radius:0.5rem;border:1px solid var(--browse-border-strong);background:var(--browse-surface-soft);padding:0.55rem 0.65rem;font-size:0.875rem;color:var(--browse-text-main);outline:none;transition:border-color 0.15s ease,box-shadow 0.15s ease,background 0.15s ease}.bf-input::placeholder{color:var(--browse-text-muted)}.bf-input:focus,.bf-select:focus{border-color:var(--browse-accent-alt);box-shadow:0 0 0 1px rgba(0,174,240,0.35);background:#fff}.bf-search-input-wrap{position:relative;display:flex;align-items:center}.bf-search-input-wrap .bf-input{padding-right:2.4rem}.bf-icon-btn{position:absolute;right:0.15rem;top:50%;transform:translateY(-50%);border:none;border-radius:0.4rem;padding:0.2rem 0.55rem;background:linear-gradient(135deg,var(--browse-accent),var(--browse-accent-soft));color:#f9fafb;font-size:0.85rem;cursor:pointer}.bf-view-toggle{display:inline-flex;background:var(--browse-surface-soft);border-radius:999px;padding:0.15rem;border:1px solid var(--browse-border-strong)}.bf-view-btn{border:none;border-radius:999px;padding:0.25rem 0.7rem;font-size:0.85rem;background:transparent;color:var(--browse-text-muted);cursor:pointer}.bf-view-btn--active{background:linear-gradient(135deg,var(--browse-accent),var(--browse-accent-soft));color:#f9fafb}.browse-filters__actions{display:flex;justify-content:space-between;align-items:center;margin-top:0.75rem;gap:0.75rem;border-top:1px solid var(--browse-border-subtle);padding-top:0.6rem}.bf-advanced-toggle{border:none;background:transparent;color:var(--browse-text-muted);font-size:0.8rem;display:inline-flex;align-items:center;gap:0.35rem;cursor:pointer;padding:0}.bf-advanced-toggle span{font-size:0.9rem}.bf-advanced-toggle-icon{display:inline-block;transition:transform 0.15s ease}.bf-advanced-toggle--collapsed .bf-advanced-toggle-icon{transform:rotate(180deg)}.bf-actions-right{display:flex;align-items:center;gap:0.6rem}.bf-reset-btn{font-size:0.8rem;border-radius:999px;border:1px solid var(--browse-border-strong);background:var(--browse-surface-soft);color:var(--browse-text-main);padding:0.25rem 0.75rem;cursor:pointer}.bf-reset-btn:hover{border-color:var(--browse-border-accent)}.bf-switch{display:inline-flex;align-items:center;gap:0.4rem;cursor:pointer;font-size:0.8rem;color:var(--browse-text-muted)}.bf-switch input{display:none}.bf-switch-slider{width:36px;height:20px;border-radius:999px;background:var(--browse-border-strong);position:relative;transition:background 0.15s ease}.bf-switch-slider::before{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:999px;background:#f9fafb;transition:transform 0.15s ease}.bf-switch input:checked+.bf-switch-slider{background:#22c55e}.bf-switch input:checked+.bf-switch-slider::before{transform:translateX(16px)}.browse-advanced{margin-top:0.75rem;border-top:1px dashed var(--browse-border-subtle);padding-top:0.9rem}.browse-advanced--collapsed{display:none}.browse-advanced__grid{display:grid;grid-template-columns:1fr;gap:0.9rem}.af-group{border-radius:0.7rem;border:1px solid var(--browse-border-subtle);background:var(--browse-surface);padding:0.55rem 0.6rem 0.65rem}.af-title{font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--browse-text-muted);margin-bottom:0.35rem}.af-note{font-size:0.75rem;color:var(--browse-text-muted);margin-bottom:0.4rem}.chip-row{display:flex;flex-wrap:wrap;gap:0.35rem;max-height:120px;overflow-y:auto;padding:4px}.chip{border-radius:999px;border:1px solid var(--browse-chip-border);padding:0.23rem 0.65rem;font-size:0.8rem;background:var(--browse-chip-bg);color:var(--browse-text-main);cursor:pointer;transition:background 0.15s ease,border-color 0.15s ease,color 0.15s ease,transform 0.12s ease;white-space:nowrap}.chip:hover{transform:translateY(-1px)}.chip--include.chip--active{background:linear-gradient(135deg,#22c55e,#4ade80);color:#022c22;border-color:transparent}.chip--exclude.chip--active{background:linear-gradient(135deg,var(--browse-hot),#fb7185);color:#450a0a;border-color:transparent}.chip--tag.chip--active{background:linear-gradient(135deg,var(--browse-accent-alt),var(--browse-accent-soft));color:#f9fafb;border-color:transparent}.tag-search-container{position:relative;margin-bottom:0.5rem}.tag-search-input{width:100%;padding:0.5rem 0.75rem;border:1px solid var(--browse-border-strong);border-radius:0.5rem;background:var(--browse-surface-soft);font-size:0.8rem}.tag-dropdown{position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid var(--browse-border-strong);border-radius:0.5rem;max-height:150px;overflow-y:auto;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.1);display:none}.tag-dropdown.active{display:block}.tag-option{padding:0.5rem 0.75rem;cursor:pointer;font-size:0.8rem;border-bottom:1px solid var(--browse-border-subtle)}.tag-option:hover{background:var(--browse-surface-soft)}.tag-option:last-child{border-bottom:none}.af-range-row{display:flex;flex-direction:column;gap:0.4rem}.af-range-line{display:flex;justify-content:space-between;align-items:center;gap:0.75rem}.af-range-label{font-size:0.78rem;color:var(--browse-text-muted)}.af-range-value{font-size:0.8rem;color:var(--browse-text-main);font-weight:500;min-width:3ch;text-align:right}.af-range-input{width:100%}.af-range-input input[type=range]{width:100%}.view-toggle{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}.view-toggle__button{padding:7px 12px;border:1px solid var(--gray-200);background:#fff;border-radius:6px;cursor:pointer;font-size:0.8rem;font-weight:500;transition:all 0.2s ease}.view-toggle__button--active{background:var(--primary);color:#fff;border-color:var(--primary)}.period-toggle{display:flex;background:#fff;border-radius:6px;padding:3px;border:1px solid var(--gray-200);margin-bottom:14px;width:fit-content;overflow-x:auto}.period-toggle__button{padding:5px 10px;border:none;background:transparent;border-radius:4px;cursor:pointer;font-size:0.75rem;font-weight:500;transition:all 0.2s ease;white-space:nowrap}.period-toggle__button--active{background:var(--primary);color:#fff}.comics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.comic-card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);display:flex;flex-direction:column;height:100%;position:relative}.comic-card__cover{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden}.comic-card__cover img{width:100%;height:100%;object-fit:cover;display:block}.comic-card__badge{position:absolute;top:5px;left:5px;font-size:0.6rem;font-weight:700;padding:2px 5px;border-radius:8px;text-transform:uppercase;letter-spacing:0.3px;z-index:2}.comic-card__badge--trending{background:var(--danger);color:#fff}.comic-card__badge--completed{background:var(--success);color:#fff}.comic-card__badge--hiatus{background:var(--warning);color:#fff}.comic-card__content{padding:8px;flex-grow:1;display:flex;flex-direction:column;min-height:0}.comic-card__title{font-size:0.8rem;font-weight:700;margin-bottom:4px;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:1.9em}.comic-card__title a{color:inherit;text-decoration:none}.comic-card__meta{font-size:0.65rem;color:var(--gray-500);margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}.comic-card__description{font-size:0.7rem;color:var(--gray-700);margin-bottom:8px;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex-shrink:0}.comic-card__stats{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:8px;flex-shrink:0}.comic-card__stat{font-size:0.65rem;padding:2px 5px;border-radius:3px;background:var(--gray-100);color:var(--gray-700);display:flex;align-items:center;gap:2px;flex-shrink:0}.comic-card__stat--hot{background:rgba(239,68,68,0.1);color:var(--danger)}.comic-card__stat--rating{background:rgba(255,193,7,0.1);color:#EAB308}.comic-card__stat--comments{background:rgba(59,130,246,0.1);color:#3B82F6}.comic-card__action{margin-top:auto;flex-shrink:0}.comic-card__button{display:inline-flex;align-items:center;justify-content:center;width:100%;padding:6px 8px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;text-decoration:none;border-radius:4px;font-size:0.75rem;font-weight:600;transition:all 0.2s ease;gap:3px}.comics-list{display:flex;flex-direction:column;gap:10px}.comics-list .comic-card{flex-direction:row;height:auto;max-height:120px}.comics-list .comic-card__cover{width:80px;flex-shrink:0;aspect-ratio:3/4}.comics-list .comic-card__content{flex-grow:1;padding:8px;overflow:hidden}.comics-list .comic-card__title { font-size: 0.85rem;-webkit-line-clamp: 1;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}.comics-list .comic-card__meta{-webkit-line-clamp:1;margin-bottom:4px}.comics-list .comic-card__description{-webkit-line-clamp:2;margin-bottom:6px}.stats-summary{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;overflow-x:auto;padding-bottom:2px}.stat-item{display:flex;align-items:center;gap:4px;font-size:0.75rem;color:var(--gray-700);background:#fff;padding:5px 8px;border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,0.05);white-space:nowrap}.stat-item i{color:var(--primary);font-size:0.7rem}.stat-weekly,.stat-monthly,.stat-alltime{display:none}.period-weekly .stat-weekly,.period-monthly .stat-monthly,.period-alltime .stat-alltime{display:inline}.browse-pagination{margin-top:1.6rem;display:flex;justify-content:center;gap:0.4rem;flex-wrap:wrap}.bp-btn,.bp-ellipsis{font-size:0.85rem}.bp-btn{padding:0.32rem 0.7rem;border-radius:999px;border:1px solid var(--browse-border-strong);background:var(--browse-surface-soft);color:var(--browse-text-main);text-decoration:none;transition:all 0.2s ease}.bp-btn:hover{border-color:var(--browse-border-accent)}.bp-btn--active{background:linear-gradient(135deg,var(--browse-accent),var(--browse-accent-soft));color:#f9fafb;border-color:transparent}.bp-btn--disabled{opacity:0.4;pointer-events:none}@media (min-width:480px){.comics-grid{grid-template-columns:repeat(3,1fr);gap:12px}.comic-card__content{padding:10px}.comic-card__title{font-size:0.85rem}.comics-list .comic-card__cover{width:90px}.browse-filters__top-row{grid-template-columns:minmax(0,1.8fr) repeat(2,minmax(0,1.1fr));grid-template-rows:auto auto}.browse-advanced__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (min-width:768px){body{padding:16px}.comics-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}.comic-card__content{padding:10px}.comic-card__title{font-size:0.9rem}.comics-list .comic-card{max-height:140px}.comics-list .comic-card__cover{width:100px}.stats-summary{gap:8px}.stat-item{font-size:0.8rem;padding:6px 10px}.browse-filters__top-row{grid-template-columns:minmax(0,2.3fr) repeat(3,minmax(0,1.1fr)) auto;grid-template-rows:auto}.browse-advanced__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media (min-width:1024px){.comics-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}}
+</style>
+<style>
+body.nightmode {
+  --gray-50: #0f1117;
+  --gray-100: #1a1d28;
+  --gray-200: #252a38;
+  --gray-500: #6b7280;
+  --gray-700: #d1d5db;
+  --gray-900: #f9fafb;
+  --browse-surface: #1a1d28;
+  --browse-surface-elevated: #252a38;
+  --browse-surface-soft: #1f2330;
+  --browse-border-subtle: #2d3444;
+  --browse-border-strong: #374151;
+  --browse-border-accent: #00AEF0;
+  --browse-text-main: #f9fafb;
+  --browse-text-muted: #9ca3af;
+  --browse-chip-bg: #2d3444;
+  --browse-chip-border: #374151;
+  --browse-accent: #00AEF0;
+  --browse-accent-soft: #0F5065;
+  --browse-accent-alt: #00AEF0;
+  --browse-hot: #ef4444;
+  background-color: var(--gray-50);
+  color: var(--gray-900);
+}
+
+body.nightmode .browse-filters {
+  background: var(--browse-surface-elevated);
+  border-color: var(--browse-border-strong);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+body.nightmode .bf-input,
+body.nightmode .bf-select,
+body.nightmode .tag-search-input {
+  background: var(--browse-surface-soft);
+  border-color: var(--browse-border-strong);
+  color: var(--browse-text-main);
+}
+
+body.nightmode .bf-input:focus,
+body.nightmode .bf-select:focus {
+  background: var(--browse-surface);
+  box-shadow: 0 0 0 1px rgba(0, 174, 240, 0.35);
+}
+
+body.nightmode .bf-view-toggle {
+  background: var(--browse-surface-soft);
+  border-color: var(--browse-border-strong);
+}
+
+body.nightmode .bf-reset-btn {
+  background: var(--browse-surface-soft);
+  border-color: var(--browse-border-strong);
+  color: var(--browse-text-main);
+}
+
+body.nightmode .af-group {
+  background: var(--browse-surface-soft);
+  border-color: var(--browse-border-subtle);
+}
+
+body.nightmode .chip {
+  background: var(--browse-chip-bg);
+  border-color: var(--browse-chip-border);
+  color: var(--browse-text-main);
+}
+
+body.nightmode .tag-dropdown {
+  background: var(--browse-surface-elevated);
+  border-color: var(--browse-border-strong);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.nightmode .tag-option {
+  border-color: var(--browse-border-subtle);
+}
+
+body.nightmode .tag-option:hover {
+  background: var(--browse-surface-soft);
+}
+
+body.nightmode .view-toggle__button {
+  background: var(--browse-surface-elevated);
+  border-color: var(--browse-border-strong);
+  color: var(--browse-text-main);
+}
+
+body.nightmode .period-toggle {
+  background: var(--browse-surface-elevated);
+  border-color: var(--browse-border-strong);
+}
+
+body.nightmode .period-toggle__button {
+  color: var(--browse-text-main);
+}
+
+body.nightmode .comic-card {
+  background: var(--browse-surface-elevated);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+body.nightmode .comic-card__meta {
+  color: var(--browse-text-muted);
+}
+
+body.nightmode .comic-card__description {
+  color: var(--gray-700);
+}
+
+body.nightmode .comic-card__stat {
+  background: var(--browse-surface-soft);
+  color: var(--browse-text-main);
+}
+
+body.nightmode .stat-item {
+  background: var(--browse-surface-elevated);
+  color: var(--browse-text-main);
+}
+
+body.nightmode .bp-btn {
+  background: var(--browse-surface-soft);
+  border-color: var(--browse-border-strong);
+  color: var(--browse-text-main);
+}
+
+body.nightmode .section-subtitle {
+  color: var(--browse-text-muted);
+}
+
+body.nightmode .bf-switch-slider {
+  background: var(--browse-border-strong);
+}
+
+body.nightmode .bf-switch-slider::before {
+  background: var(--browse-surface-elevated);
+}
+
+body.nightmode .comic-card__stat--hot {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+body.nightmode .comic-card__stat--rating {
+  background: rgba(255, 193, 7, 0.15);
+}
+
+body.nightmode .comic-card__stat--comments {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+body.nightmode .chip--include.chip--active {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #ecfdf5;
+  border-color: transparent;
+}
+
+body.nightmode .chip--exclude.chip--active {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+  color: #fef2f2;
+  border-color: transparent;
+}
+
+body.nightmode .chip--tag.chip--active {
+  background: linear-gradient(135deg, var(--browse-accent-alt), var(--browse-accent-soft));
+  color: #f9fafb;
+  border-color: transparent;
+}
+</style>
+
+
+
+<link rel="apple-touch-icon" href="/static/img/logo_200x200.png">
+
+
+
+
+
+
+
+
+
+
+
+<link rel="preconnect" href="https://imgsrv4.com" crossorigin>
+
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://www.google-analytics.com">
+
+<link rel="preload stylesheet" as="style" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Roboto:400,500,700|Nunito+Sans:400,600,700|Raleway:400,500|Lora|Noto+Sans&display=swap" crossorigin onload="this.rel='stylesheet'" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/css/swiper.min.css" crossorigin onload="this.rel='stylesheet'" />
+<noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Roboto:400,500,700|Nunito+Sans:400,600,700|Raleway:400,500|Lora|Noto+Sans&display=swap" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/css/swiper.min.css" integrity="sha256-/MUsbxMVqlXbxtYsVUN7Scrbq8Hd5Up+BntZl2TuMLQ=" crossorigin="anonymous" />
+    </noscript>
+
+<link rel="stylesheet" type="text/css" media="all"  href="/static/ln/media_mobile.css?version=4assdjuw8jda888888872" />
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 768px)" href="/static/ln/786.css" />
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1024px)" href="/static/ln/1024.css" />
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1270px)" href="/static/ln/1270.css" />
+<link rel="stylesheet" type="text/css" href="/static/ln/paged.css" />
+<link rel="icon" type="image/png" href="/static/img/logo_200x200.png" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+<link rel="stylesheet" type="text/css" href="/static/mgeko.css?v=5" />
+<link rel="stylesheet" type="text/css" href="/static/comment.css?v=31" />
+
+
+<script type="text/javascript">
+function myFunction() {
+var x = document.getElementById("search-section");
+if (x.style.display === "none") {
+  x.style.display = "block";
+} else {
+  x.style.display = "none";
+}
+}
+
+</script>
+
+
+<link rel="stylesheet" type="text/css" href="/static/ln/v4.css?v=35s" />
+<link rel="stylesheet" type="text/css" href="/static/ln/yfi.css?v=8s" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P1MBHKW2D4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-P1MBHKW2D4');
+
+</script>
+
+
+
+
+<style>
+  .nsad{width:100%}
+  .nsad__slot{display:block}
+  .nsad__slot picture,.nsad__slot img{display:block;width:100%;height:auto}
+
+  /* AUTO: desktop on desktop, mobile on mobile */
+  .nsad--auto .nsad__slot--desktop{display:block}
+  .nsad--auto .nsad__slot--mobile{display:block}
+  @media (max-width:640px){.nsad--auto .nsad__slot--desktop{display:none}}
+  @media (min-width:641px){.nsad--auto .nsad__slot--mobile{display:none}}
+
+  /* FORCE MODES (ignore viewport) */
+  .nsad--desktop-only .nsad__slot--mobile{display:none!important}
+  .nsad--mobile-only  .nsad__slot--desktop{display:none!important}
+</style>
+
+
+
+
+
+
+
+
+
+
+ <script async data-cfasync="false" src="https://cdn.adschill.com/v2/unit/pt.js" type="text/javascript"></script> 
+<!--
+<script async data-cfasync="false" src="https://platform.pubadx.one/pubadx-ad.js" type="text/javascript"></script>
+-->
+
+
+<!--
+<div id="bg-ssp-8464">
+<script data-cfasync="false">
+var adx_id_8464 = document.getElementById('bg-ssp-8464');
+adx_id_8464.id = 'bg-ssp-8464-' + Math.floor(Math.random() * Date.now());
+window.pubadxtag = window.pubadxtag || [];
+window.pubadxtag.push({zoneid: 8464, id: adx_id_8464.id, wu: window.location.href})
+</script>
+</div>
+-->
+
+<script>(s=>{s.dataset.zone='9539931',s.src='https://bvtpk.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+</head>
+<body class="fade-out">
+<header class="main-header skiptranslate">
+<div class="wrapper">
+
+
+<div class="nav-logo">
+<a title="mangageko" href="/">
+<img src="/static/img/logo_200x200.png" alt="mgeko.com" />
+</a>
+
+</div>
+
+<div class="navigation-bar" style="position: fixed; 	top: 0; right: 0; bottom: 0;">
+<nav>
+<span class="lnw-slog">Fan comics</span>
+<ul class="navbar-menu">
+
+
+<li class="nav-	item">
+<a class="nav-link" title="Search Manga" href="#" onclick="myFunction()"><i class="fab fa-searchengin"></i>&nbsp; Quick</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" title="Latest Updated Manga" href="/jumbo/manga/"><i class="fas fa-book"></i> Manga Updates</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" title="Browse Manga" href="/browse-comics/"><i class="fab fa-safari"></i> Browse</a>
+</li>
+
+
+
+<li class="nav-item">
+<a id="nightmode" data-tool="night" title="Night mode" data-night="0" data-content="Switch to Night Mode">
+<i class="material-icons">nights_stay</i>
+</a>
+</li>
+</ul>
+</nav>
+
+
+
+<div class="login-wrap-nav">
+<a class="nav-link login" href="/portal/api/login/"><i class="material-icons">login</i> Sign In</a>
+</div>
+
+
+
+
+ </div>
+<div class="nav-back">
+</div>
+<i class="mobile-nav-btn material-icons">menu</i>
+<span class="nav notify-bell mobile-block material-icons">notifications_active</span>
+</div>
+</header>
+<div class="sidebar-wrapper"></div>
+
+
+
+<article x-data="search_results" class="container" id="search-section" style="display: none;">
+
+<div class="search-container">
+
+<form id="novelSearchForm" method="get" action="/search/">
+<input type="hidden" name="csrfmiddlewaretoken" value="j8uj8foHkmJofcDSih3Z9xPWWmMtrvIsQwTAWeKFgVRDQ5wDIMk5KSpxyCxCj5SA">
+<div class="form-group single" style="display: flex;align-items: center;gap: 10px;">
+<label class="search_label" for="search"><svg width="16" height="16" viewBox="0 0 16 16" class="styles_icon__3eEqS dib vam pa_auto _no_color"><path d="M7.153 12.307A5.153 5.153 0 107.153 2a5.153 5.153 0 000 10.307zm5.716-.852l2.838 2.838a1 1 0 01-1.414 1.414l-2.838-2.838a7.153 7.153 0 111.414-1.414z" fill="#C0C2CC" fill-rule="nonzero"></path></svg></label>
+<input x-model.debounce.1000ms="key" id="inputContent" name="inputContent" type="search" class="form-control" placeholder="Search By Manga Name" aria-label="Manga Search" aria-describedby="basic-addon1">
+<span class="searchClose" onclick="myFunction()">X</span>
+</div>
+</form>
+
+<section x-ref="searchres" id="novelListBase">
+
+  <div style="display: flex;justify-content: center;" x-show="loading" x-cloak>
+    <img height="50" width="50" src="https://www.mgeko.cc/static/ln/loading_api_transparent.svg" alt="">
+  </div>
+
+</section>
+</div>
+<div id="moresearch">
+</div>
+</article>
+
+<!-- right_bottom_nav -->
+<a x-data="right_pan" x-show="showtop" href="#" @click="scrollTop" class="top_button" x-cloak><i class="fas fa-long-arrow-alt-up"></i></a>
+<!-- end -->
+
+
+
+    <main role="main">
+<article id="explore" class="container">
+
+
+<section class="browse-comics"> 
+    <div class="container"> <h1 class="section-title">Browse Comics</h1> <p class="section-subtitle">Discover your next favorite story</p>
+      <div class="stats-summary">
+        <div class="stat-item">
+            <i class="fas fa-book-open"></i>
+            <span id="total-comics">0 Comics</span>
+        </div>
+    </div>
+    
+    <form class="browse-filters" method="GET" action="" id="browse-filters-form">
+        <div class="browse-filters__top-row">
+
+            <div class="bf-group bf-group--search">
+                <label class="bf-label" for="bf-search">Search</label>
+                <div class="bf-search-input-wrap">
+                    <input
+                        type="text"
+                        id="bf-search"
+                        name="q"
+                        value=""
+                        placeholder="Search by title, author, artist…"
+                        class="bf-input"
+                    />
+                    <button type="button" class="bf-icon-btn" id="search-btn" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="bf-group">
+                <label class="bf-label" for="bf-status">Status</label>
+                <select id="bf-status" name="status" class="bf-select">
+                    <option value="">Any</option>
+                    <option value="ongoing" >Ongoing</option>
+                    <option value="completed" >Completed</option>
+                    <option value="hiatus" >Hiatus</option>
+                </select>
+            </div>
+
+            <div class="bf-group">
+                <label class="bf-label" for="bf-type">Type</label>
+                <select id="bf-type" name="type" class="bf-select">
+                    <option value="">Any</option>
+                    <option value="manga" >Manga</option>
+                    <option value="manhwa" >Manhwa</option>
+                    <option value="manhua" >Manhua</option>
+                    <option value="webtoon" >Webtoon</option>
+                </select>
+            </div>
+
+            <div class="bf-group">
+                <label class="bf-label" for="bf-sort">Sort by</label>
+              
+                <select id="bf-sort" name="sort" class="bf-select">
+    <option value="latest" >Latest update</option>
+    <option value="recently_added" >Recently Added</option>
+    <option value="popular_daily" >Popular Daily</option>
+    <option value="popular_weekly" >Popular Weekly</option>
+    <option value="popular_monthly" >Popular Monthly</option>
+    <option value="popular_all_time" >Popular All Time</option>
+    <option value="rating" >Top rated</option>
+    <option value="az" >Title A–Z</option>
+    <option value="za" >Title Z–A</option>
+</select>
+            </div>
+
+            
+        </div>
+
+        <div class="browse-filters__actions">
+            <button
+                type="button"
+                class="bf-advanced-toggle"
+                id="bf-advanced-toggle"
+                data-collapsed="false"
+            >
+                <span>Advanced filters</span>
+                <span class="bf-advanced-toggle-icon">▴</span>
+            </button>
+
+            <div class="bf-actions-right">
+                <label class="bf-switch">
+                    <input type="checkbox" name="safe_mode" id="safe-mode" checked />
+                    <span class="bf-switch-slider"></span>
+                    <span>Hide NSFW</span>
+                </label>
+                <button type="button" class="bf-reset-btn" id="bf-reset-btn">
+                    Reset filters
+                </button>
+            </div>
+        </div>
+
+        <div class="browse-advanced" id="browse-advanced">
+            <div class="browse-advanced__grid">
+
+           <div class="af-group">
+    <div class="af-title">Include genres</div>
+    <p class="af-note">Only show series that match at least one selected genre.</p>
+    <div class="chip-row">
+        
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Action">Action</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Adventure">Adventure</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Comedy">Comedy</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Cooking">Cooking</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Manga">Manga</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Drama">Drama</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Fantasy">Fantasy</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Gender bender">Gender Bender</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Harem">Harem</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Historical">Historical</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Horror">Horror</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Isekai">Isekai</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Josei">Josei</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Manhua">Manhua</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Manhwa">Manhwa</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Martial arts">Martial Arts</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Mature">Mature</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Mecha">Mecha</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Medical">Medical</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Mystery">Mystery</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="One shot">One Shot</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Psychological">Psychological</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Romance">Romance</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="School life">School Life</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Sci fi">Sci Fi</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Seinen">Seinen</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Shoujo">Shoujo</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Shounen">Shounen</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Slice of life">Slice Of Life</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Sports">Sports</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Supernatural">Supernatural</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Tragedy">Tragedy</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="Webtoons">Webtoons</button>
+        
+        <button type="button" class="chip chip--include " data-group="include_genres" data-value="ladies">Ladies</button>
+        
+        
+    </div>
+    <input type="hidden" name="include_genres" id="include_genres" value="">
+</div>
+
+<div class="af-group">
+    <div class="af-title">Exclude genres</div>
+    <p class="af-note">Hide series that contain any of these genres.</p>
+    <div class="chip-row">
+        
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Action">Action</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Adventure">Adventure</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Comedy">Comedy</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Cooking">Cooking</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Manga">Manga</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Drama">Drama</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Fantasy">Fantasy</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Gender bender">Gender Bender</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Harem">Harem</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Historical">Historical</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Horror">Horror</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Isekai">Isekai</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Josei">Josei</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Manhua">Manhua</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Manhwa">Manhwa</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Martial arts">Martial Arts</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Mature">Mature</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Mecha">Mecha</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Medical">Medical</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Mystery">Mystery</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="One shot">One Shot</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Psychological">Psychological</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Romance">Romance</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="School life">School Life</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Sci fi">Sci Fi</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Seinen">Seinen</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Shoujo">Shoujo</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Shounen">Shounen</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Slice of life">Slice Of Life</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Sports">Sports</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Supernatural">Supernatural</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Tragedy">Tragedy</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="Webtoons">Webtoons</button>
+        
+        <button type="button" class="chip chip--exclude " data-group="exclude_genres" data-value="ladies">Ladies</button>
+        
+        
+    </div>
+    <input type="hidden" name="exclude_genres" id="exclude_genres" value="">
+</div>
+
+                <div class="af-group">
+                    <div class="af-title">Tags</div>
+                    <p class="af-note">Stack tags like system, regression, OP MC, etc.</p>
+                    
+                    <div class="tag-search-container">
+                        <input type="text" class="tag-search-input" placeholder="Search for tags...">
+                        <div class="tag-dropdown" id="tag-dropdown"></div>
+                    </div>
+                    
+                    <div class="chip-row" id="tag-chips-container">
+                        
+                        
+                        
+                    </div>
+                    <input type="hidden" name="tags" id="tags" value="">
+                </div>
+
+                <div class="af-group">
+                    <div class="af-title">Chapter count</div>
+                    <p class="af-note">Target on-going binge (high max) or short completed reads (lower max).</p>
+                    <div class="af-range-row">
+                        <div class="af-range-line">
+                            <span class="af-range-label">Min chapters</span>
+                            <span class="af-range-value" id="min-chapters-label">
+                                Any
+                            </span>
+                        </div>
+                        <div class="af-range-input">
+                            <input type="range"
+                                    id="min-chapters-range"
+                                    name="min_chapters"
+                                    min="0"
+                                    max="9998"
+                                    step="5"
+                                    value="0">
+                        </div>
+                        <div class="af-range-line" style="margin-top:0.35rem;">
+                            <span class="af-range-label">Max chapters</span>
+                            <span class="af-range-value" id="max-chapters-label">
+                                Any
+                            </span>
+                        </div>
+                        <div class="af-range-input">
+                            <input type="range"
+                                    id="max-chapters-range"
+                                    name="max_chapters"
+                                    min="0"
+                                    max="9999"
+                                    step="5"
+                                    value="9999">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="af-group">
+                    <div class="af-title">Minimum rating</div>
+                    <p class="af-note">Filter out low-rated series.</p>
+                    <div class="af-range-row">
+                        <div class="af-range-line">
+                            <span class="af-range-label">Min rating</span>
+                            <span class="af-range-value" id="min-rating-label">
+                                Any
+                            </span>
+                        </div>
+                        <div class="af-range-input">
+                            <input type="range"
+                                    id="min-rating-range"
+                                    name="min_rating"
+                                    min="0"
+                                    max="50"
+                                    step="1"
+                                    value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="af-group">
+                    <div class="af-title">Extra options</div>
+                    <p class="af-note">Tighten search with more conditions.</p>
+                    <div style="display:flex;flex-direction:column;gap:0.35rem;font-size:0.8rem;color:var(--browse-text-main);">
+                        <label>
+                            <input type="checkbox" name="only_completed" value="1"  style="margin-right:0.4rem;">
+                            Only completed series
+                        </label>
+                        <label>
+                            <input type="checkbox" name="only_translated" value="1"  style="margin-right:0.4rem;">
+                            At least 50+ chapters translated
+                        </label>
+                        <label>
+                            <input type="checkbox" name="hide_on_break" value="1"  style="margin-right:0.4rem;">
+                            Hide long hiatus (&gt; 6 months)
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    <div class="view-toggle">
+        <button class="view-toggle__button view-toggle__button--active" data-view="grid">
+            <i class="fas fa-th"></i> Grid
+        </button>
+        <!--
+        <button class="view-toggle__button" data-view="list">
+            <i class="fas fa-list"></i> List
+        </button>
+        -->
+    </div>
+    
+
+    
+    <div id="results-container">
+        <div class="comics-grid period-weekly" id="comics-container">
+            
+            <div class="no-results" style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--gray-500);">
+                <p>No comics found matching your criteria.</p>
+            </div>
+            
+        </div>
+    </div>
+    
+    <nav class="browse-pagination">
+        
+            <span class="bp-btn bp-btn--disabled">
+                <i class="fas fa-chevron-left"></i> Prev
+            </span>
+        
+            
+        
+
+        
+            <span class="bp-btn bp-btn--disabled">
+                Next <i class="fas fa-chevron-right"></i>
+            </span>
+        
+    </nav>
+</div>
+</section>
+
+<script>
+const API_BASE_URL = '/browse-comics/data/';
+const TAGS_API_BASE_URL = 'https://www.mgeko.cc/get/tags/';
+let currentPage = 1;
+let isLoading = false;
+let currentFilters = {};
+let tagsRequestController = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+    currentFilters = getCurrentFilters();
+    setupFilterListeners();
+    setupViewToggle();
+    setupPeriodToggle();
+    setupAdvancedFilters();
+    setupTagSearch();
+    setupRangeSliders();
+    loadData(currentFilters);
+});
+
+function getCurrentFilters() {
+    const filters = {};
+    const urlParams = new URLSearchParams(window.location.search);
+    for (let [key, value] of urlParams.entries()) {
+        if (value && value !== '0' && value !== '') {
+            filters[key] = value;
+        }
+    }
+    syncFormWithUrlParams(urlParams);
+    return filters;
+}
+
+function syncFormWithUrlParams(urlParams) {
+    const searchInput = document.getElementById('bf-search');
+    if (urlParams.get('q')) {
+        searchInput.value = urlParams.get('q');
+    }
+    
+    ['status', 'type', 'sort'].forEach(name => {
+        const select = document.querySelector(`select[name="${name}"]`);
+        if (select && urlParams.get(name)) {
+            select.value = urlParams.get(name);
+        }
+    });
+    
+    const safeMode = document.getElementById('safe-mode');
+    if (urlParams.get('safe_mode')) {
+        safeMode.checked = urlParams.get('safe_mode') === '1';
+    }
+    
+    ['only_completed', 'only_translated', 'hide_on_break'].forEach(name => {
+        const checkbox = document.querySelector(`input[name="${name}"]`);
+        if (checkbox && urlParams.get(name)) {
+            checkbox.checked = urlParams.get(name) === '1';
+        }
+    });
+    
+    const minChRange = document.getElementById("min-chapters-range");
+    const maxChRange = document.getElementById("max-chapters-range");
+    const ratingRange = document.getElementById("min-rating-range");
+    
+    if (minChRange && urlParams.get('min_chapters')) {
+        minChRange.value = urlParams.get('min_chapters');
+    }
+    if (maxChRange && urlParams.get('max_chapters')) {
+        maxChRange.value = urlParams.get('max_chapters');
+    }
+    if (ratingRange && urlParams.get('min_rating')) {
+        ratingRange.value = urlParams.get('min_rating');
+    }
+    
+    syncChipsWithUrlParams('include_genres', urlParams);
+    syncChipsWithUrlParams('exclude_genres', urlParams);
+    
+    const tagsHiddenInput = document.getElementById('tags');
+    if (urlParams.get('tags')) {
+        tagsHiddenInput.value = urlParams.get('tags');
+        updateTagChipsFromHiddenInput();
+    }
+    
+    updateRangeLabels();
+}
+
+function syncChipsWithUrlParams(groupName, urlParams) {
+    const hiddenInput = document.getElementById(groupName);
+    if (hiddenInput && urlParams.get(groupName)) {
+        hiddenInput.value = urlParams.get(groupName);
+        const values = urlParams.get(groupName).split(',');
+        document.querySelectorAll(`.chip[data-group="${groupName}"]`).forEach(chip => {
+            const chipValue = chip.getAttribute('data-value');
+            if (values.includes(chipValue)) {
+                chip.classList.add('chip--active');
+            } else {
+                chip.classList.remove('chip--active');
+            }
+        });
+    }
+}
+
+function updateTagChipsFromHiddenInput() {
+    const tagsHiddenInput = document.getElementById('tags');
+    const tagChipsContainer = document.getElementById('tag-chips-container');
+    if (!tagsHiddenInput.value) {
+        tagChipsContainer.innerHTML = '';
+        return;
+    }
+    
+    const tags = tagsHiddenInput.value.split(',');
+    tagChipsContainer.innerHTML = '';
+    tags.forEach(tag => {
+        if (tag) {
+            const chip = document.createElement('button');
+            chip.type = 'button';
+            chip.className = 'chip chip--tag chip--active';
+            chip.setAttribute('data-group', 'tags');
+            chip.setAttribute('data-value', tag);
+            chip.textContent = tag.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            chip.addEventListener('click', function() {
+                const currentTags = tagsHiddenInput.value.split(',').filter(t => t !== tag);
+                tagsHiddenInput.value = currentTags.join(',');
+                chip.remove();
+                currentFilters.tags = tagsHiddenInput.value;
+                currentFilters.page = 1;
+                updateURLWithCurrentFilters();
+                loadData(currentFilters);
+            });
+            tagChipsContainer.appendChild(chip);
+        }
+    });
+}
+
+function setupFilterListeners() {
+    const searchInput = document.getElementById('bf-search');
+    const searchBtn = document.getElementById('search-btn');
+    let searchTimeout;
+    
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            currentFilters.q = this.value;
+            currentFilters.page = 1;
+            loadData(currentFilters);
+        }, 500);
+    });
+    
+    searchBtn.addEventListener('click', function() {
+        currentFilters.q = searchInput.value;
+        currentFilters.page = 1;
+        loadData(currentFilters);
+    });
+    
+    ['bf-status', 'bf-type', 'bf-sort'].forEach(id => {
+        document.getElementById(id).addEventListener('change', function() {
+            currentFilters[this.name] = this.value;
+            currentFilters.page = 1;
+            loadData(currentFilters);
+        });
+    });
+    
+    document.getElementById('safe-mode').addEventListener('change', function() {
+        currentFilters.safe_mode = this.checked ? '1' : '0';
+        currentFilters.page = 1;
+        loadData(currentFilters);
+    });
+    
+    ['only_completed', 'only_translated', 'hide_on_break'].forEach(name => {
+        const checkbox = document.querySelector(`input[name="${name}"]`);
+        if (checkbox) {
+            checkbox.addEventListener('change', function() {
+                currentFilters[this.name] = this.checked ? '1' : '';
+                currentFilters.page = 1;
+                loadData(currentFilters);
+            });
+        }
+    });
+}
+
+function setupViewToggle() {
+    const viewButtons = document.querySelectorAll('.view-toggle__button');
+    const comicsContainer = document.getElementById('comics-container');
+    
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const view = this.getAttribute('data-view');
+            viewButtons.forEach(btn => btn.classList.remove('view-toggle__button--active'));
+            this.classList.add('view-toggle__button--active');
+            comicsContainer.className = view === 'grid' ? 'comics-grid' : 'comics-list';
+        });
+    });
+}
+
+function setupPeriodToggle() {
+    const periodButtons = document.querySelectorAll('.period-toggle__button');
+    periodButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const period = this.getAttribute('data-period');
+            periodButtons.forEach(btn => btn.classList.remove('period-toggle__button--active'));
+            this.classList.add('period-toggle__button--active');
+            const comicsContainer = document.getElementById('comics-container');
+            comicsContainer.classList.remove('period-weekly', 'period-monthly', 'period-alltime');
+            comicsContainer.classList.add(`period-${period}`);
+        });
+    });
+}
+
+function setupAdvancedFilters() {
+    const advToggle = document.getElementById("bf-advanced-toggle");
+    const advBlock = document.getElementById("browse-advanced");
+    
+    if (advToggle && advBlock) {
+        advToggle.addEventListener("click", () => {
+            const collapsed = advToggle.getAttribute("data-collapsed") === "true";
+            if (collapsed) {
+                advBlock.classList.remove("browse-advanced--collapsed");
+                advToggle.setAttribute("data-collapsed", "false");
+                advToggle.querySelector(".bf-advanced-toggle-icon").textContent = "▴";
+            } else {
+                advBlock.classList.add("browse-advanced--collapsed");
+                advToggle.setAttribute("data-collapsed", "true");
+                advToggle.querySelector(".bf-advanced-toggle-icon").textContent = "▾";
+            }
+        });
+    }
+    
+    const chipEls = document.querySelectorAll(".chip");
+    
+    function updateHidden(groupName) {
+        const hidden = document.getElementById(groupName);
+        if (!hidden) return;
+        
+        const activeValues = Array.from(chipEls)
+            .filter(chip => chip.classList.contains("chip--active") && chip.getAttribute("data-group") === groupName)
+            .map(chip => chip.getAttribute("data-value"))
+            .filter(Boolean);
+        
+        hidden.value = activeValues.join(",");
+        currentFilters[groupName] = hidden.value;
+        currentFilters.page = 1;
+        loadData(currentFilters);
+    }
+    
+    chipEls.forEach(chip => {
+        chip.addEventListener("click", () => {
+            chip.classList.toggle("chip--active");
+            const group = chip.getAttribute("data-group");
+            if (group) updateHidden(group);
+        });
+    });
+}
+
+function setupTagSearch() {
+    const tagSearchInput = document.querySelector('.tag-search-input');
+    const tagDropdown = document.getElementById('tag-dropdown');
+    const tagChipsContainer = document.getElementById('tag-chips-container');
+    const tagsHiddenInput = document.getElementById('tags');
+    
+    updateTagChipsFromHiddenInput();
+    
+    let tagSearchTimeout;
+    
+    function addTag(tagValue, tagText) {
+        const currentTags = tagsHiddenInput.value ? tagsHiddenInput.value.split(',') : [];
+        if (currentTags.includes(tagValue)) return;
+        
+        currentTags.push(tagValue);
+        tagsHiddenInput.value = currentTags.join(',');
+        updateTagChipsFromHiddenInput();
+        
+        currentFilters.tags = tagsHiddenInput.value;
+        currentFilters.page = 1;
+        updateURLWithCurrentFilters();
+        loadData(currentFilters);
+        
+        tagSearchInput.value = '';
+        tagDropdown.classList.remove('active');
+    }
+    
+    function fetchTagsFromAPI(searchTerm) {
+        if (tagsRequestController) {
+            tagsRequestController.abort();
+        }
+        tagsRequestController = new AbortController();
+        
+        if (!searchTerm || searchTerm.length < 2) {
+            tagDropdown.classList.remove('active');
+            return;
+        }
+        
+        const url = `${TAGS_API_BASE_URL}?tag=${encodeURIComponent(searchTerm)}`;
+        
+        fetch(url, { signal: tagsRequestController.signal })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(tags => {
+                displayTagsInDropdown(tags, searchTerm);
+            })
+            .catch(error => {
+                if (error.name === 'AbortError') {
+                    return;
+                }
+                console.error('Error fetching tags:', error);
+                tagDropdown.innerHTML = '<div class="tag-option">Error loading tags</div>';
+            });
+    }
+    
+    function displayTagsInDropdown(tags, searchTerm) {
+        tagDropdown.innerHTML = '';
+        
+        if (!tags || tags.length === 0) {
+            tagDropdown.innerHTML = '<div class="tag-option">No tags found</div>';
+            tagDropdown.classList.add('active');
+            return;
+        }
+        
+        const currentTags = tagsHiddenInput.value ? tagsHiddenInput.value.split(',') : [];
+        
+        tags.forEach(tag => {
+            const tagValue = tag.tag_name.toLowerCase().replace(/\s+/g, '-');
+            if (!currentTags.includes(tagValue)) {
+                const option = document.createElement('div');
+                option.className = 'tag-option';
+                option.textContent = tag.tag_name;
+                option.setAttribute('data-tag-id', tag.id);
+                option.setAttribute('data-tag-value', tagValue);
+                option.addEventListener('click', () => {
+                    addTag(tagValue, tag.tag_name);
+                });
+                tagDropdown.appendChild(option);
+            }
+        });
+        
+        if (tagDropdown.children.length === 0) {
+            tagDropdown.innerHTML = '<div class="tag-option">All matching tags are already selected</div>';
+        }
+        
+        tagDropdown.classList.add('active');
+    }
+    
+    tagSearchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.trim();
+        clearTimeout(tagSearchTimeout);
+        tagSearchTimeout = setTimeout(() => {
+            fetchTagsFromAPI(searchTerm);
+        }, 300);
+    });
+    
+    tagSearchInput.addEventListener('focus', () => {
+        if (tagSearchInput.value.trim().length >= 2) {
+            fetchTagsFromAPI(tagSearchInput.value.trim());
+        }
+    });
+    
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.tag-search-container')) {
+            tagDropdown.classList.remove('active');
+        }
+    });
+    
+    tagSearchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            tagDropdown.classList.remove('active');
+        }
+    });
+}
+
+function setupRangeSliders() {
+    const minChRange = document.getElementById("min-chapters-range");
+    const maxChRange = document.getElementById("max-chapters-range");
+    const ratingRange = document.getElementById("min-rating-range");
+    
+    let rangeTimeout;
+    
+    function handleRangeChange() {
+        updateRangeLabels();
+        clearTimeout(rangeTimeout);
+        rangeTimeout = setTimeout(() => {
+            currentFilters.min_chapters = minChRange.value;
+            currentFilters.max_chapters = maxChRange.value;
+            currentFilters.min_rating = ratingRange.value;
+            currentFilters.page = 1;
+            loadData(currentFilters);
+        }, 500);
+    }
+    
+    [minChRange, maxChRange, ratingRange].forEach(slider => {
+        if (slider) {
+            slider.addEventListener('input', handleRangeChange);
+        }
+    });
+    
+    updateRangeLabels();
+}
+
+function updateRangeLabels() {
+    const minChRange = document.getElementById("min-chapters-range");
+    const maxChRange = document.getElementById("max-chapters-range");
+    const minChLabel = document.getElementById("min-chapters-label");
+    const maxChLabel = document.getElementById("max-chapters-label");
+    const ratingRange = document.getElementById("min-rating-range");
+    const ratingLabel = document.getElementById("min-rating-label");
+    
+    if (minChRange && minChLabel) {
+        const minValue = minChRange.value;
+        minChLabel.textContent = minValue !== '0' ? minValue : 'Any';
+    }
+    
+    if (maxChRange && maxChLabel) {
+        const maxValue = maxChRange.value;
+        maxChLabel.textContent = maxValue !== '0' ? maxValue : 'Any';
+    }
+    
+    if (ratingRange && ratingLabel) {
+        const ratingValue = ratingRange.value;
+        ratingLabel.textContent = ratingValue !== '0' ? (ratingValue / 10).toFixed(1) + '+' : 'Any';
+    }
+}
+
+function updateURLWithCurrentFilters() {
+    const newUrl = new URL(window.location);
+    Object.keys(currentFilters).forEach(key => {
+        if (currentFilters[key]) {
+            newUrl.searchParams.set(key, currentFilters[key]);
+        } else {
+            newUrl.searchParams.delete(key);
+        }
+    });
+    window.history.replaceState({}, '', newUrl);
+}
+
+function generatePagination(pageNum, totalPages, filters) {
+    if (totalPages <= 1) return '';
+    
+    let paginationHTML = '<nav class="browse-pagination">';
+    
+ 
+    if (pageNum > 1) {
+        paginationHTML += `<a href="?page=${pageNum - 1}${buildFilterParams(filters)}" class="bp-btn">« Prev</a>`;
+    } else {
+        paginationHTML += '<span class="bp-btn bp-btn--disabled">« Prev</span>';
+    }
+    
+  
+    let startPage, endPage;
+    
+    if (totalPages <= 5) {
+     
+        startPage = 1;
+        endPage = totalPages;
+    } else {
+      
+        if (pageNum <= 3) {
+            startPage = 1;
+            endPage = 5;
+        } else if (pageNum >= totalPages - 2) {
+            startPage = totalPages - 4;
+            endPage = totalPages;
+        } else {
+            startPage = pageNum - 2;
+            endPage = pageNum + 2;
+        }
+    }
+    
+  
+    if (startPage > 1) {
+        paginationHTML += `<a href="?page=1${buildFilterParams(filters)}" class="bp-btn">1</a>`;
+        if (startPage > 2) {
+            paginationHTML += '<span class="bp-btn bp-btn--ellipsis">...</span>';
+        }
+    }
+    
+  
+    for (let i = startPage; i <= endPage; i++) {
+        if (i === pageNum) {
+            paginationHTML += `<span class="bp-btn bp-btn--active">${i}</span>`;
+        } else {
+            paginationHTML += `<a href="?page=${i}${buildFilterParams(filters)}" class="bp-btn">${i}</a>`;
+        }
+    }
+    
+  
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+            paginationHTML += '<span class="bp-btn bp-btn--ellipsis">...</span>';
+        }
+        paginationHTML += `<a href="?page=${totalPages}${buildFilterParams(filters)}" class="bp-btn">${totalPages}</a>`;
+    }
+    
+    // Next button
+    if (pageNum < totalPages) {
+        paginationHTML += `<a href="?page=${pageNum + 1}${buildFilterParams(filters)}" class="bp-btn">Next »</a>`;
+    } else {
+        paginationHTML += '<span class="bp-btn bp-btn--disabled">Next »</span>';
+    }
+    
+    paginationHTML += '</nav>';
+    return paginationHTML;
+}
+
+function buildFilterParams(filters) {
+    let params = '';
+    Object.keys(filters).forEach(key => {
+        if (key !== 'page' && filters[key]) {
+            params += `&${key}=${encodeURIComponent(filters[key])}`;
+        }
+    });
+    return params;
+}
+
+function loadData(filters = {}) {
+    if (isLoading) return;
+    isLoading = true;
+    
+    const comicsContainer = document.getElementById('comics-container');
+    comicsContainer.innerHTML = '<div class="loading" style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--gray-500);">Loading comics...</div>';
+    
+    const url = new URL(API_BASE_URL, window.location.origin);
+    Object.keys(filters).forEach(key => {
+        if (filters[key]) {
+            url.searchParams.set(key, filters[key]);
+        }
+    });
+    
+    updateURLWithCurrentFilters();
+    
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = data.results_html;
+            const comicCards = tempDiv.querySelectorAll('.comic-card');
+            
+            comicsContainer.innerHTML = '';
+            comicCards.forEach(card => {
+                comicsContainer.appendChild(card);
+            });
+            
+            if (comicCards.length === 0) {
+                comicsContainer.innerHTML = '<div class="no-results" style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--gray-500);">No comics found matching your criteria.</div>';
+            }
+            
+            document.getElementById('total-comics').textContent = data.total_results + ' Comics';
+            
+            const pageNum = data.page || 1;
+            const totalPages = data.num_pages || 1;
+            const paginationHTML = generatePagination(pageNum, totalPages, filters);
+            
+            const paginationContainer = document.querySelector('.browse-pagination');
+            if (paginationContainer) {
+                paginationContainer.outerHTML = paginationHTML;
+            } else {
+                const comicsGrid = document.querySelector('.comics-grid, .comics-list');
+                if (comicsGrid) {
+                    comicsGrid.insertAdjacentHTML('afterend', paginationHTML);
+                }
+            }
+            
+            setupPaginationListeners();
+            updateRangeLabels();
+            currentPage = data.page;
+        })
+        .catch(error => {
+            console.error('Error loading data:', error);
+            comicsContainer.innerHTML = '<div class="error" style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--danger);">Error loading comics. Please try again.</div>';
+        })
+        .finally(() => {
+            isLoading = false;
+        });
+}
+
+function setupPaginationListeners() {
+    const paginationButtons = document.querySelectorAll('.bp-btn');
+    paginationButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (this.classList.contains('bp-btn--disabled')) return;
+            
+            const href = this.getAttribute('href');
+            if (href && href !== '#') {
+                const url = new URL(href, window.location.origin);
+                const page = url.searchParams.get('page');
+                if (page) {
+                    currentFilters.page = page;
+                    loadData(currentFilters);
+                }
+            }
+        });
+    });
+}
+
+document.getElementById('bf-reset-btn').addEventListener('click', function() {
+    document.getElementById('browse-filters-form').reset();
+    document.querySelectorAll('.chip').forEach(chip => {
+        chip.classList.remove('chip--active');
+    });
+    
+    ['include_genres', 'exclude_genres', 'tags'].forEach(id => {
+        document.getElementById(id).value = '';
+    });
+    
+    document.getElementById('min-chapters-range').value = '0';
+    document.getElementById('max-chapters-range').value = '0';
+    document.getElementById('min-rating-range').value = '0';
+    updateRangeLabels();
+    document.getElementById('tag-chips-container').innerHTML = '';
+    
+    currentFilters = {};
+    currentFilters.page = 1;
+    updateURLWithCurrentFilters();
+    loadData(currentFilters);
+});
+</script>
+ 
+
+
+</article>
+<div id="pf-12388-1"><script>window.pubfuturetag = window.pubfuturetag || [];window.pubfuturetag.push({unit: "6731d3f7d05ff1003d07e66c", id: "pf-12388-1"})</script></div>
+    </main>
+
+
+
+
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.10/dist/cdn.min.js">
+</script>
+
+<footer translate="no">
+<div class="wrapper">
+<div class="col logo">
+<img class="footer-logo" src="/static/img/logo_200x200.png" alt="logo-footer">
+<span class="copyright">2026 mgeko.cc</span>
+</div>
+
+<nav class="col links">
+<ul>
+
+
+<li>
+<a href="/privacy-policy">Privacy Policy</a>
+</li>
+
+<li>
+  <a href="/terms-and-conditions">Terms and conditions</a>
+  </li>
+
+<li>
+<a href="javascript:alert('Please *whois* search current domain name and email us there.')">Contact Us</a>
+</li>
+
+</ul>
+
+
+
+</nav>
+</div>
+</footer>
+<div id="alertbox_error" class="alertbox">
+<div class="alert-wrapper">
+<div class="alert-body">
+<h6 class="title">Something Wrong!</h6>
+<div class="msg">
+Something Wrong!
+</div>
+</div>
+<button class="closebtn">
+<i class="material-icons">close</i> Close
+</button>
+</div>
+</div>
+<div id="alertbox_question" class="alertbox">
+<div class="alert-wrapper">
+<div class="alert-body">
+<h6 class="title">Something Wrong!</h6>
+<div class="msg">
+Something Wrong!
+</div>
+</div>
+<div class="footer">
+<button class="closebtn">
+<i class="material-icons">close</i> Cancel
+</button>
+<button class="apply">
+<i class="material-icons">check</i> Apply
+</button>
+</div>
+</div>
+</div>
+
+<script src="/static/ln/jquery.js"></script>
+<script src="/static/ln/ajax.js"></script>
+<script src="/static/ln/sticky.js"></script>
+<script src="/static/ln/app.min.js?v=1acdsd8sdb563asdd64c86232def0e5ed9494e8c48d564e03fcd"></script>
+<script src="/static/ln/new_app.js?v=4" async></script>
+<script src="/static/comment.js?v=121s"></script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"68e4cb5437f24388bd52660bafcc6c53","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
+

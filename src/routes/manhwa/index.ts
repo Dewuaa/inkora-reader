@@ -6,6 +6,7 @@ import mangadex from './mangadex';
 import comick from './comick';
 import manhuaus from './manhuaus';
 import manhuaplus from './manhuaplus';
+import mgeko from './mgeko';
 import unified from './unified';
 
 const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
@@ -13,6 +14,7 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
   await fastify.register(unified, { prefix: '/unified' });
 
   // Individual providers
+  await fastify.register(mgeko, { prefix: '/mgeko' });
   await fastify.register(asurascans, { prefix: '/asurascans' });
   await fastify.register(weebcentral, { prefix: '/weebcentral' });
   await fastify.register(mangadex, { prefix: '/mangadex' });

@@ -9,8 +9,9 @@ import axios from 'axios';
  * content even if the primary provider is down or missing the manhwa.
  *
  * Provider Priority:
- * 1. ManhuaPlus (primary) - Good content, fast search
- * 2. ManhuaUS (fallback) - Good alternative with Madara theme
+ * 1. ManhuaPlus (primary) - Fast, reliable, full endpoints
+ * 2. ManhuaUS (fallback) - Good alternative, full endpoints
+ * Note: Mgeko temporarily disabled due to site issues
  *
  * The response always includes `provider` field so frontend knows
  * which source the data came from for subsequent requests.
@@ -23,8 +24,9 @@ interface ProviderConfig {
 }
 
 const PROVIDERS: ProviderConfig[] = [
-  { name: 'manhuaplus', baseUrl: '/manhwa/manhuaplus', priority: 1 },
-  { name: 'manhuaus', baseUrl: '/manhwa/manhuaus', priority: 2 },
+  { name: 'mgeko', baseUrl: '/manhwa/mgeko', priority: 1 }, // Primary - huge library, fast updates
+  { name: 'manhuaplus', baseUrl: '/manhwa/manhuaplus', priority: 2 }, // Fallback
+  { name: 'manhuaus', baseUrl: '/manhwa/manhuaus', priority: 3 }, // Fallback
 ];
 
 const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
