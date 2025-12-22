@@ -37,8 +37,15 @@ const popularCache: {
   ttl: 30 * 60 * 1000, // 30 minutes cache
 };
 
-// Genre cache
-const genreCache: Map<string, { data: any[]; timestamp: number }> = new Map();
+// Genre cache with pagination info
+interface GenreCacheEntry {
+  data: any[];
+  timestamp: number;
+  hasNextPage?: boolean;
+  totalResults?: number;
+  totalPages?: number;
+}
+const genreCache: Map<string, GenreCacheEntry> = new Map();
 const GENRE_CACHE_TTL = 15 * 60 * 1000; // 15 minutes
 
 const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
@@ -777,50 +784,52 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
     }
   });
 
-  // Genre endpoint - uses search since browse-comics is JS-rendered
+  // Genre endpoint - uses Mgeko's internal JSON API for proper paginated results
+  // API discovered: /browse-comics/data/?include_genres=Action&page=1
+  // Returns: { results_html, pagination_html, total_results, page, num_pages }
   fastify.get('/genre/:slug', async (request: FastifyRequest, reply: FastifyReply) => {
     const { slug } = request.params as { slug: string };
     const { page } = request.query as { page?: string };
     const pageNum = page ? parseInt(page) : 1;
 
-    // Map slug to search-friendly term
-    const genreSearchMap: Record<string, string> = {
-      action: 'action',
-      adventure: 'adventure',
-      comedy: 'comedy',
-      cooking: 'cooking',
-      drama: 'drama',
-      fantasy: 'fantasy',
-      'gender-bender': 'gender bender',
-      harem: 'harem',
-      historical: 'historical',
-      horror: 'horror',
-      isekai: 'isekai',
-      josei: 'josei',
-      manga: 'manga',
-      manhua: 'manhua',
-      manhwa: 'manhwa',
-      'martial-arts': 'martial arts',
-      mature: 'mature',
-      mecha: 'mecha',
-      medical: 'medical',
-      mystery: 'mystery',
-      'one-shot': 'one shot',
-      psychological: 'psychological',
-      romance: 'romance',
-      'school-life': 'school life',
-      'sci-fi': 'sci fi',
-      seinen: 'seinen',
-      shoujo: 'shoujo',
-      shounen: 'shounen',
-      'slice-of-life': 'slice of life',
-      sports: 'sports',
-      supernatural: 'supernatural',
-      tragedy: 'tragedy',
-      webtoons: 'webtoon',
+    // Map slug to Mgeko genre format (capitalized for include_genres parameter)
+    const genreNameMap: Record<string, string> = {
+      action: 'Action',
+      adventure: 'Adventure',
+      comedy: 'Comedy',
+      cooking: 'Cooking',
+      drama: 'Drama',
+      fantasy: 'Fantasy',
+      'gender-bender': 'Gender Bender',
+      harem: 'Harem',
+      historical: 'Historical',
+      horror: 'Horror',
+      isekai: 'Isekai',
+      josei: 'Josei',
+      manga: 'Manga',
+      manhua: 'Manhua',
+      manhwa: 'Manhwa',
+      'martial-arts': 'Martial Arts',
+      mature: 'Mature',
+      mecha: 'Mecha',
+      medical: 'Medical',
+      mystery: 'Mystery',
+      'one-shot': 'One Shot',
+      psychological: 'Psychological',
+      romance: 'Romance',
+      'school-life': 'School Life',
+      'sci-fi': 'Sci-Fi',
+      seinen: 'Seinen',
+      shoujo: 'Shoujo',
+      shounen: 'Shounen',
+      'slice-of-life': 'Slice of Life',
+      sports: 'Sports',
+      supernatural: 'Supernatural',
+      tragedy: 'Tragedy',
+      webtoons: 'Webtoons',
     };
 
-    const searchTerm = genreSearchMap[slug] || slug.replace(/-/g, ' ');
+    const genreName = genreNameMap[slug] || slug.charAt(0).toUpperCase() + slug.slice(1);
 
     // Check cache
     const cacheKey = `${slug}:${pageNum}`;
@@ -828,8 +837,9 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
     if (cached && Date.now() - cached.timestamp < GENRE_CACHE_TTL) {
       return reply.status(200).send({
         currentPage: pageNum,
-        hasNextPage: cached.data.length >= 20,
-        totalResults: cached.data.length,
+        hasNextPage: cached.hasNextPage,
+        totalResults: cached.totalResults,
+        totalPages: cached.totalPages,
         genre: slug,
         results: cached.data,
         cached: true,
@@ -837,62 +847,195 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
     }
 
     try {
-      const url = `/search/?search=${encodeURIComponent(searchTerm)}${pageNum > 1 ? `&page=${pageNum}` : ''}`;
-      const response = await client.get(url);
-      const $ = cheerio.load(response.data);
-
-      const results: any[] = [];
-
-      $('li.novel-item').each((_, el) => {
-        const link = $(el).find('a').first();
-        const href = link.attr('href');
-        if (!href) return;
-
-        const id = href.replace('/manga/', '').replace('/', '');
-        const title =
-          $(el).find('h4.novel-title').text().trim() ||
-          $(el).find('.novel-title').text().trim();
-
-        const img = $(el).find('img').first();
-        const rawImage = img.attr('data-src') || img.attr('src') || '';
-        const image = fixImageUrl(rawImage);
-
-        if (!image || !title) return;
-
-        const chapterEl = $(el).find('.chapter-title, h5.chapter-title').first();
-        const rawChapter = chapterEl.text().trim();
-        const latestChapter = extractChapterNumber(rawChapter) || 'New';
-
-        results.push({
-          id,
-          title,
-          image,
-          latestChapter,
-          status: 'Ongoing',
-          genre: slug,
-        });
+      // Use Mgeko's internal JSON API endpoint
+      // This returns JSON with results_html containing the manga cards
+      const apiUrl = `/browse-comics/data/?include_genres=${encodeURIComponent(genreName)}&page=${pageNum}`;
+      console.log(`[Mgeko] Genre API URL: ${apiUrl}`);
+      
+      const response = await client.get(apiUrl, {
+        headers: {
+          'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
       });
 
-      // Cache results
-      genreCache.set(cacheKey, { data: results, timestamp: Date.now() });
+      const apiData = response.data;
+      const results: any[] = [];
+      const seenIds = new Set<string>();
+
+      // Parse the results_html from the JSON response
+      if (apiData.results_html) {
+        const $ = cheerio.load(apiData.results_html);
+
+        // Parse comic cards from the HTML
+        $('a.comic-card, article.comic-card, .comic-item').each((_, el) => {
+          const $el = $(el);
+          
+          // Get the link - could be the element itself or inside it
+          const link = $el.is('a') ? $el : $el.find('a').first();
+          const href = link.attr('href');
+          if (!href) return;
+
+          const id = href.replace('/manga/', '').replace(/\//g, '');
+          
+          // Skip duplicates
+          if (seenIds.has(id)) return;
+          seenIds.add(id);
+
+          // Get title
+          const title =
+            $el.find('.comic-card__title').text().trim() ||
+            $el.find('.title').text().trim() ||
+            link.attr('title') ||
+            '';
+
+          // Get image
+          const img = $el.find('img').first();
+          const rawImage = img.attr('data-src') || img.attr('src') || '';
+          const image = fixImageUrl(rawImage);
+
+          if (!image || !title) return;
+
+          // Get latest chapter
+          const chapterEl = $el.find('.comic-card__badge, .chapter-title, .latest-chapter').first();
+          const rawChapter = chapterEl.text().trim();
+          const latestChapter = extractChapterNumber(rawChapter) || 'New';
+
+          results.push({
+            id,
+            title,
+            image,
+            latestChapter,
+            status: 'Ongoing',
+            genre: slug,
+          });
+        });
+
+        // Also try alternative selectors if no results
+        if (results.length === 0) {
+          $('li.novel-item, .novel-item').each((_, el) => {
+            const link = $(el).find('a').first();
+            const href = link.attr('href');
+            if (!href) return;
+
+            const id = href.replace('/manga/', '').replace(/\//g, '');
+            if (seenIds.has(id)) return;
+            seenIds.add(id);
+
+            const title =
+              $(el).find('h4.novel-title').text().trim() ||
+              $(el).find('.novel-title').text().trim() ||
+              link.attr('title') ||
+              '';
+
+            const img = $(el).find('img').first();
+            const rawImage = img.attr('data-src') || img.attr('src') || '';
+            const image = fixImageUrl(rawImage);
+
+            if (!image || !title) return;
+
+            const chapterEl = $(el).find('.chapter-title, h5.chapter-title').first();
+            const rawChapter = chapterEl.text().trim();
+            const latestChapter = extractChapterNumber(rawChapter) || 'New';
+
+            results.push({
+              id,
+              title,
+              image,
+              latestChapter,
+              status: 'Ongoing',
+              genre: slug,
+            });
+          });
+        }
+      }
+
+      // Extract pagination info from API response
+      const totalResults = apiData.total_results || results.length;
+      const totalPages = apiData.num_pages || Math.ceil(totalResults / 24);
+      const hasNextPage = pageNum < totalPages;
+
+      // Cache results with pagination info
+      genreCache.set(cacheKey, { 
+        data: results, 
+        timestamp: Date.now(),
+        hasNextPage,
+        totalResults,
+        totalPages,
+      });
 
       console.log(
-        `[Mgeko] Genre "${slug}" page ${pageNum} found ${results.length} items`,
+        `[Mgeko] Genre "${slug}" page ${pageNum}/${totalPages} found ${results.length} items (total: ${totalResults})`,
       );
 
       reply.status(200).send({
         currentPage: pageNum,
-        hasNextPage: results.length >= 20,
-        totalResults: results.length,
+        hasNextPage,
+        totalResults,
+        totalPages,
         genre: slug,
         results,
       });
     } catch (error: any) {
       console.error('[Mgeko] Genre error:', error.message);
-      reply.status(500).send({
-        message: 'Something went wrong. Please try again later.',
-        error: error.message,
-      });
+      
+      // Fallback to search if API fails
+      console.log('[Mgeko] Falling back to search endpoint...');
+      try {
+        const searchUrl = `/search/?search=${encodeURIComponent(slug.replace(/-/g, ' '))}&page=${pageNum}`;
+        const searchResponse = await client.get(searchUrl);
+        const $ = cheerio.load(searchResponse.data);
+
+        const results: any[] = [];
+        const seenIds = new Set<string>();
+
+        $('li.novel-item').each((_, el) => {
+          const link = $(el).find('a').first();
+          const href = link.attr('href');
+          if (!href) return;
+
+          const id = href.replace('/manga/', '').replace('/', '');
+          if (seenIds.has(id)) return;
+          seenIds.add(id);
+
+          const title =
+            $(el).find('h4.novel-title').text().trim() ||
+            $(el).find('.novel-title').text().trim();
+
+          const img = $(el).find('img').first();
+          const rawImage = img.attr('data-src') || img.attr('src') || '';
+          const image = fixImageUrl(rawImage);
+
+          if (!image || !title) return;
+
+          const chapterEl = $(el).find('.chapter-title, h5.chapter-title').first();
+          const rawChapter = chapterEl.text().trim();
+          const latestChapter = extractChapterNumber(rawChapter) || 'New';
+
+          results.push({
+            id,
+            title,
+            image,
+            latestChapter,
+            status: 'Ongoing',
+            genre: slug,
+          });
+        });
+
+        reply.status(200).send({
+          currentPage: pageNum,
+          hasNextPage: results.length >= 20,
+          totalResults: results.length,
+          genre: slug,
+          results,
+          fallback: true,
+        });
+      } catch (fallbackError: any) {
+        reply.status(500).send({
+          message: 'Something went wrong. Please try again later.',
+          error: error.message,
+        });
+      }
     }
   });
 
