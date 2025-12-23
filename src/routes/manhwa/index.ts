@@ -8,13 +8,19 @@ import manhuaus from './manhuaus';
 import manhuaplus from './manhuaplus';
 import mgeko from './mgeko';
 import unified from './unified';
+import anilist from './anilist';
+import mangaupdates from './mangaupdates';
+import comixto from './comixto';
 
 const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
   // Register unified provider first (with fallback system)
   await fastify.register(unified, { prefix: '/unified' });
 
   // Individual providers
+  await fastify.register(comixto, { prefix: '/comixto' }); // Primary - with scan groups
   await fastify.register(mgeko, { prefix: '/mgeko' });
+  await fastify.register(anilist, { prefix: '/anilist' });
+  await fastify.register(mangaupdates, { prefix: '/mangaupdates' });
   await fastify.register(asurascans, { prefix: '/asurascans' });
   await fastify.register(weebcentral, { prefix: '/weebcentral' });
   await fastify.register(mangadex, { prefix: '/mangadex' });
