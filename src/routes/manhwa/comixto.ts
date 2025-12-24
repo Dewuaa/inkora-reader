@@ -70,6 +70,7 @@ function formatChapter(chapter: any) {
   return {
     id: String(chapter.chapter_id),
     title: chapter.name ? `Chapter ${chapter.number} - ${chapter.name}` : `Chapter ${chapter.number}`,
+    number: chapter.number, // Required by frontend for display
     chapterNumber: chapter.number,
     releaseDate: chapter.created_at ? new Date(chapter.created_at * 1000).toISOString() : null,
     // Scan group info - this is the key feature!
@@ -473,23 +474,27 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
       
       const manga = mangaData.result;
 
-      // Get chapters with scan group info - fetch multiple pages if needed
+      // Get chapters with scan group info - fetch ALL pages
+      // NOTE: Comix.to ignores per_page parameter and always returns 30 items per page
+      // Some manga have 900+ chapter versions, requiring up to 33+ pages
       let allChapters: any[] = [];
       let page = 1;
       let hasMore = true;
       
-      while (hasMore && page <= 10) { // Max 10 pages (500 chapters each)
-        const chaptersData = await fetchApi(`/manga/${id}/chapters?per_page=100&page=${page}`);
+      while (hasMore && page <= 50) { // Max 50 pages (1500 chapter versions)
+        const chaptersData = await fetchApi(`/manga/${id}/chapters?page=${page}`);
         const items = chaptersData.result?.items || [];
         allChapters = allChapters.concat(items);
         
-        console.log(`Comix.to chapters page ${page}: got ${items.length} items, total so far: ${allChapters.length}`);
+        console.log(`Comix.to chapters page ${page}/${chaptersData.result?.pagination?.last_page || '?'}: got ${items.length} items, total so far: ${allChapters.length}`);
         
         hasMore = chaptersData.result?.pagination?.current_page < chaptersData.result?.pagination?.last_page;
         page++;
       }
       
       const rawChapters = allChapters;
+
+
 
       // Group chapters by number to show different scan group versions
       const chapterMap = new Map<number, any[]>();
@@ -510,10 +515,12 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
         const primary = versions[0];
         return {
           ...primary,
-          versions: versions.length > 1 ? versions : undefined,
+          // ALWAYS include versions array so frontend can filter by scan group
+          versions: versions,
           hasMultipleVersions: versions.length > 1,
         };
       });
+
 
       const info = formatMangaInfo(manga);
 
@@ -567,6 +574,7 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
       return reply.send({
         chapterId,
         title: chapter.name ? `Chapter ${chapter.number} - ${chapter.name}` : `Chapter ${chapter.number}`,
+        number: chapter.number, // Required by frontend for display
         chapterNumber: chapter.number,
         scanGroup: chapter.scanlation_group ? {
           id: chapter.scanlation_group.scanlation_group_id,
